@@ -52,4 +52,31 @@ router.post('/tasks', async (req, res) => {
   }
 });
 
+// Disapprove Employee (Set isApproved to false)
+router.patch('/disapprove/:id', async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.params.id, { isApproved: false });
+    res.json({ message: "Employee access revoked (Disapproved)" });
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+// Toggle Block/Unblock (Requires adding isBlocked: Boolean to your User Model)
+router.patch('/toggle-block/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    user.isBlocked = !user.isBlocked;
+    await user.save();
+    res.json({ message: user.isBlocked ? "Employee Blocked" : "Employee Unblocked" });
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
+// Remove Employee (Delete from DB and delete their tasks)
+router.delete('/remove/:id', async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    await Task.deleteMany({ assignedTo: req.params.id }); // Clean up tasks
+    res.json({ message: "Employee and associated tasks removed" });
+  } catch (err) { res.status(500).json({ message: err.message }); }
+});
+
 module.exports = router;
