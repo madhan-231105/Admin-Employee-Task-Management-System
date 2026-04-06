@@ -1,141 +1,191 @@
-⚡ TaskFlow PRO - Premium MERN Task Management System
+# ⚡ TaskFlow PRO
 
-TaskFlow PRO is a high-performance, premium-designed task management application built with the MERN Stack. It offers a dual-portal system specifically designed for seamless coordination between Administrators and Employees, featuring real-time task tracking and advanced workforce management.
-🎨 Design Philosophy & Palette
+### 🚀 Premium MERN Task Management System
 
-The application uses a custom Glassmorphism aesthetic with a high-contrast dark theme:
+TaskFlow PRO is a **high-performance, premium task management application** built with the **MERN Stack**.
+It features a **dual-portal system** designed for seamless collaboration between **Administrators** and **Employees**, with real-time tracking and efficient workforce management.
 
-    Slate (#262626): Deep primary background.
+---
 
-    Secondhand Grey (#3f3f3f): Frosted glass card surfaces.
+## ✨ Core Features
 
-    Whitish (#f5f5f5): Primary typography and high-impact elements.
+### 🛠 Admin Portal
 
-    Accent (#c8a97e): Premium gold/tan highlights for actions and branding.
+🔹 **Workforce Controls**
 
-    System Colors: Success (#6fcf97), Warning (#f2994a), Danger (#eb5757), and Info (#a8c4dc).
+* ✅ Approve / Revoke employee access in real-time
+* 🚫 Block / Unblock users without deleting data
+* ❌ Remove employees and their task history permanently
 
-🚀 Core Features
-🛠 Administrative Portal
+🔹 **Task Dispatcher**
 
-    Workforce Controls:
+* Assign tasks with:
 
-        Approve/Revoke: Manage employee access in real-time.
+  * 🟢 Low Priority
+  * 🟡 Medium Priority
+  * 🔴 High Priority
 
-        Block/Unblock: Instantly restrict login access without deleting data.
+🔹 **Live Monitoring**
 
-        Remove: Permanently delete employees and their associated task history.
+* 📊 Centralized dashboard with filters
+* 🔍 Track all tasks across the organization
 
-    Task Dispatcher: Assign tasks with detailed descriptions and three priority levels (Low, Medium, High).
+🔹 **Analytics**
 
-    Live Monitoring: Track all organizational tasks through a centralized, filterable dashboard.
+* 📈 Visual stat cards:
 
-    Analytics: Visual stat cards showing total staff, active members, and live task counts.
+  * Total Staff
+  * Active Members
+  * Live Task Counts
 
-👤 Employee Portal
+---
 
-    Departmental Registration: Employees can sign up with specific department metadata.
+### 👤 Employee Portal
 
-    Secure Access: Access is restricted until an Administrator verifies and approves the account.
+🔹 **Department-Based Registration**
 
-    Personal Work Desk: A dedicated space to view assigned tasks and project details.
+* 🏢 Register with department metadata
 
-    Progress Tracking: Update task status through Pending, In Progress, and Completed pipelines.
+🔹 **Secure Access**
 
-🛠 Technology Stack
+* 🔐 Login only after admin approval
 
-    Frontend: React.js (Vite), Tailwind CSS v4 (CSS-first config), Lucide-React Icons, Axios.
+🔹 **Personal Work Desk**
 
-    Backend: Node.js, Express.js.
+* 📋 View assigned tasks & project details
 
-    Database: MongoDB (Mongoose ODM).
+🔹 **Progress Tracking**
 
-    Security: JWT (JSON Web Tokens), BcryptJS (Password Hashing), Protected Frontend Routes.
+* Update task status:
 
-📁 Project Structure
-code Text
+  * ⏳ Pending
+  * ⚙️ In Progress
+  * ✅ Completed
 
+---
+
+## 🛠 Tech Stack
+
+### 💻 Frontend
+
+* ⚛️ React.js (Vite)
+* 🎨 Tailwind CSS v4
+* 🎯 Lucide React Icons
+* 🔗 Axios
+
+### ⚙️ Backend
+
+* 🟢 Node.js
+* 🚏 Express.js
+
+### 🗄 Database
+
+* 🍃 MongoDB (Mongoose ODM)
+
+### 🔐 Security
+
+* 🔑 JWT Authentication
+* 🔒 BcryptJS Password Hashing
+* 🛡 Protected Routes
+
+---
+
+## 📁 Project Structure
+
+```bash
 task-mgmt-system/
 ├── backend/
-│   ├── config/         # Database connection logic
-│   ├── models/         # User & Task Mongoose Schemas
-│   ├── routes/         # Auth, Admin, and Employee API routes
-│   └── server.js       # Express entry point & Admin Seeding logic
+│   ├── config/         # DB connection
+│   ├── models/         # Schemas
+│   ├── routes/         # API routes
+│   └── server.js       # Entry point
+│
 ├── frontend/
 │   ├── src/
-│   │   ├── components/ # Modal, Avatar, TaskCard, Toast UI
-│   │   ├── pages/      # Login, AdminPortal, EmployeePortal
-│   │   ├── services/   # Axios API instance with Auth interceptors
-│   │   └── index.css   # Tailwind v4 Global Theme & Palette
+│   │   ├── components/ # UI components
+│   │   ├── pages/      # Pages
+│   │   ├── services/   # API layer
+│   │   └── index.css   # Tailwind styles
+```
 
-⚙️ Installation & Execution
-1. Prerequisites
+---
 
-    Node.js (v18+)
+## ⚙️ Installation & Setup
 
-    MongoDB (Local or Atlas URI)
+### 🔹 Prerequisites
 
-    Git
+* Node.js (v18+)
+* MongoDB (Local / Atlas)
+* Git
 
-2. Backend Setup
+---
 
-    Enter the backend directory:
-    code Bash
+### 🧩 Backend Setup
 
-    cd backend
+```bash
+cd backend
+npm install
+```
 
-    Install dependencies:
-    code Bash
+Create `.env` file:
 
-    npm install
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_super_secret_key
+```
 
-    Create a .env file in the backend/ folder:
-    code Env
+Run server:
 
-    PORT=5000
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_super_secret_key
+```bash
+npm run dev
+```
 
-    Start the server:
-    code Bash
+📌 *Default Admin will be automatically created on first run.*
 
-    npm run dev
+---
 
-    Note: The system will automatically seed the default Admin on the first run.
+### 🎨 Frontend Setup
 
-3. Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-    Open a new terminal and enter the frontend directory:
-    code Bash
+---
 
-    cd frontend
+## 🔑 Default Admin Credentials
 
-    Install dependencies:
-    code Bash
+```txt
+Email: admin@system.com
+Password: admin123
+```
 
-    npm install
+---
 
-    Start the Vite development server:
-    code Bash
+## 🛡 Security & Reliability
 
-    npm run dev
+* 🔐 **Auth Guard** – Role-based protected routes
+* 🔗 **Axios Interceptors** – Auto-attach JWT token
+* 🚫 **Blocking Logic** – Prevent blocked users login
+* 📱 **Responsive UI** – Optimized for all devices
 
-🔑 Default Admin Credentials
+---
 
-For initial setup, use the following credentials to access the Admin Portal:
+## 🌟 Highlights
 
-    Email: admin@system.com
+✔ Clean UI with modern design
+✔ Real-time workforce control
+✔ Scalable architecture
+✔ Production-ready structure
 
-    Password: admin123
+---
 
-🛡 Security & Reliability
+## 👨‍💻 Built With ❤️
 
-    Auth Guard: Frontend routes are protected by a ProtectedRoute component that validates user roles and tokens.
+Developed using the **MERN Stack** for performance, scalability, and modern web standards.
 
-    API Interceptors: The Axios instance automatically attaches the JWT token to every request header.
+---
 
-    Blocking Logic: The system performs a real-time database check during login to prevent blocked users from gaining access.
-
-    Responsive UI: The dashboard is optimized for both desktop and mobile views using a fluid CSS-first approach.
-
-Developed with the MERN Stack for efficiency and scale.
+⭐ *If you like this project, give it a star!*
