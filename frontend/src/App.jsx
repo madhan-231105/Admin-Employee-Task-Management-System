@@ -1,25 +1,53 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
+import LoginPage from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
 import EmployeeDashboard from './pages/EmployeeDashboard';
 
-function App() {
+// This component checks if the user is authorized for a specific role
+const ProtectedRoute = ({ children, allowedRole }) => {
   const user = JSON.parse(localStorage.getItem('user'));
+  const token = localStorage.getItem('token');
 
+  if (!token || !user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (user.role !== allowedRole) {
+    // If an employee tries to go to /admin, send them to /employee
+    return <Navigate to={user.role === 'admin' ? '/admin' : '/employee'} replace />;
+  }
+
+  return children;
+};
+
+function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginPage />} />
         
-        <Route path="/admin" element={
-          user?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/login" />
-        } />
+        {/* Protect Admin Route */}
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedRoute allowedRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          } 
+        />
 
-        <Route path="/employee" element={
-          user?.role === 'employee' ? <EmployeeDashboard /> : <Navigate to="/login" />
-        } />
+        {/* Protect Employee Route */}
+        <Route 
+          path="/employee" 
+          element={
+            <ProtectedRoute allowedRole="employee">
+              <EmployeeDashboard />
+            </ProtectedRoute>
+          } 
+        />
 
-        <Route path="*" element={<Navigate to="/login" />} />
+        {/* Default Redirect */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );
