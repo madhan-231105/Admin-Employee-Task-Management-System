@@ -3,20 +3,26 @@ import LoginPage from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
 import EmployeeDashboard from './pages/EmployeeDashboard';
 
-// This component checks if the user is authorized for a specific role
+/**
+ * ProtectedRoute Component
+ * Checks localStorage for a valid session and verifies the user's role
+ */
 const ProtectedRoute = ({ children, allowedRole }) => {
   const user = JSON.parse(localStorage.getItem('user'));
   const token = localStorage.getItem('token');
 
+  // 1. If not logged in, send to login
   if (!token || !user) {
     return <Navigate to="/login" replace />;
   }
 
+  // 2. If logged in but wrong role, redirect to their specific dashboard
   if (user.role !== allowedRole) {
-    // If an employee tries to go to /admin, send them to /employee
-    return <Navigate to={user.role === 'admin' ? '/admin' : '/employee'} replace />;
+    const fallbackPath = user.role === 'admin' ? '/admin' : '/employee';
+    return <Navigate to={fallbackPath} replace />;
   }
 
+  // 3. Authorized
   return children;
 };
 
@@ -24,9 +30,10 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Public Route */}
         <Route path="/login" element={<LoginPage />} />
         
-        {/* Protect Admin Route */}
+        {/* Admin Only Route */}
         <Route 
           path="/admin" 
           element={
@@ -36,7 +43,7 @@ function App() {
           } 
         />
 
-        {/* Protect Employee Route */}
+        {/* Employee Only Route */}
         <Route 
           path="/employee" 
           element={
@@ -46,7 +53,8 @@ function App() {
           } 
         />
 
-        {/* Default Redirect */}
+        {/* Catch-all Redirect */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
